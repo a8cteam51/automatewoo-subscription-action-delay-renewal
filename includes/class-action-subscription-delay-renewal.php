@@ -19,14 +19,6 @@ class Action_Subscription_Delay_Renewal extends Action {
 	public $required_data_items = array( 'subscription' );
 
 	/**
-	 * Flag to define whether variable products should be included in search results for the
-	 * product select field.
-	 *
-	 * @var bool
-	 */
-	protected $allow_variable_products = true;
-
-	/**
 	 * Method to load the action's fields.
 	 */
 	public function load_fields() {
@@ -62,6 +54,7 @@ class Action_Subscription_Delay_Renewal extends Action {
 	public function run() {
 		$subscription = $this->workflow->data_layer()->get_subscription();
 
+		// defaults to 0 if nothing is specified
 		$delay_time = $this->get_option( 'delay_time', 0 );
 
 		$old_next_payment           = $subscription->get_date( 'next_payment' );
@@ -80,8 +73,9 @@ class Action_Subscription_Delay_Renewal extends Action {
 	 * Adds a note to the given subscription indicating the product swap
 	 *
 	 * @param \WC_Subscription $subscription
-	 * @param \WC_Product $swap_out_product
-	 * @param \WC_Product $swap_in_product
+	 * @param int $delay_time
+	 * @param string $old_next_payment_timestamp
+	 * @param string $new_next_payment_timestamp
 	 */
 	protected function add_subscription_note( $subscription, $delay_time, $old_next_payment_timestamp, $new_next_payment_timestamp ) {
 

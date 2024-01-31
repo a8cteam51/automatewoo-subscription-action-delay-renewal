@@ -9,7 +9,7 @@ class AutomateWoo_Subscription_Delay_Renewal {
 	public static function register_action( $actions ) {
 		require_once __DIR__ . '/includes/class-action-subscription-delay-renewal.php';
 
-		$actions['to51_subscription_delay_renewal'] = Action_Subscription_Delay_renewal::class;
+		$actions['to51_subscription_delay_renewal'] = Action_Subscription_Delay_Renewal::class;
 		return $actions;
 	}
 }
